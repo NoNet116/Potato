@@ -1,0 +1,32 @@
+﻿@model Potato.ViewModels.Account.LoginViewModel
+<link rel="stylesheet" href="~/css/Login.css" asp-append-version="true" />
+<aside class="flex-item item-sidebar">
+    <div class="auth-wrapper">
+        <div class="login-box">
+            <h4>Добро пожаловать!</h4>
+            <form method="post" asp-controller="Account" asp-action="Login">
+                <div asp-validation-summary="ModelOnly"></div>
+
+                <div>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <input class="btn" type="submit" value="Войти" />
+                </div>
+            </form>
+
+            <div class="register-link">
+                <a asp-controller="Home" asp-action="Register">Регистрация</a>
+            </div>
+        </div>
+    </div>
+</aside>
+
+

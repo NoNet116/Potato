@@ -1,0 +1,53 @@
+﻿.edit-profile-form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fdfdfd;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+    .edit-profile-form .form-group {
+        margin-bottom: 15px;
+    }
+
+    .edit-profile-form .form-label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .edit-profile-form .form-input,
+    .edit-profile-form textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    .edit-profile-form textarea {
+        resize: vertical;
+        min-height: 80px;
+    }
+
+/*    .edit-profile-form button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .edit-profile-form button[type="submit"]:hover {
+            background-color: #0056b3;
+        }*/
+
+.text-danger {
+    color: #dc3545;
+    font-size: 13px;
+}

@@ -1,0 +1,77 @@
+﻿.profile-container {
+    margin: auto;
+    padding: 20px 20px 0 0;
+    color: #333;
+}
+
+
+.profile-card {
+    background-color: #f9f9fb;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-image-container {
+    position: relative;
+}
+
+.profile-image {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Контекстное меню */
+.context-menu {
+    position: absolute;
+    top: 100%; /* Размещение под изображением */
+    left: 50%; /* Центрирование по горизонтали */
+    transform: translateX(-50%); /* Для точного центрирования */
+    display: none;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 8px;
+    flex-direction: column;
+    z-index: 10;
+}
+
+/* Показать контекстное меню при наведении на фото */
+.profile-image-container:hover .context-menu {
+    display: flex;
+}
+
+/* Элементы контекстного меню */
+.context-menu a,
+.context-menu .menu-button,
+.context-menu label {
+    display: block;
+    margin: 5px 0;
+    text-decoration: none;
+    color: #333;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+    /* Эффект наведения на элементы контекстного меню */
+    .context-menu a:hover,
+    .context-menu .menu-button:hover,
+    .context-menu label:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+
+.profile-info h2 {
+    font-size: 22px;
+}

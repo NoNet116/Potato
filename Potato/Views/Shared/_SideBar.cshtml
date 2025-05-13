@@ -1,0 +1,13 @@
+﻿<!-- Боковая панель -->
+<aside class="flex-item item-sidebar">
+    <ul>
+        <li><a href="/">👤 Профиль</a></li>
+        <li><a href="/Friends">👥 Друзья</a></li>
+        <li><a href="/Messages">✉️ Сообщения</a></li>
+        <li>
+            <form method="post" asp-controller="Account" asp-action="Logout">
+                <button type="submit">🚪 Выйти</button>
+            </form>
+        </li>
+    </ul>
+</aside>

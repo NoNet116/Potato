@@ -1,0 +1,47 @@
+﻿@using System.Security.Claims
+@model Potato.ViewModels.Account.UserViewModel
+
+@{
+    var isOwner = User.FindFirstValue(ClaimTypes.NameIdentifier) == Model.User.Id;
+    var profileImage = string.IsNullOrWhiteSpace(Model.User.Image)
+        ? "https://thumbs.dreamstime.com/b/happy-potato-cartoon-character-wearing-baseball-cap-shoes-smiling-happy-potato-cartoon-character-wearing-baseball-cap-347364266.jpg"
+        : Model.User.Image;
+}
+
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="profile-image-container">
+            <img src="@profileImage" alt="Фото профиля @Model.User.FullName" class="profile-image" id="profilePic" />
+
+            <div class="context-menu" id="photoMenu">
+                <a href="@profileImage" target="_blank">Открыть</a>
+                @if (isOwner)
+                {
+                    <label for="fileInput" class="menu-button">Обновить</label>
+
+                    <form method="post" asp-action="DeletePhoto" asp-controller="Profile" style="display:inline;">
+                        <button type="submit" class="menu-button">Удалить</button>
+                    </form>
+
+                    <form method="post" asp-action="UploadPhoto" asp-controller="Profile" enctype="multipart/form-data" id="photoForm">
+                        <input type="file" id="fileInput" name="ProfileImage" accept="image/*" style="display:none;" />
+                    </form>
+                }
+            </div>
+        </div>
+
+        <div class="profile-info">
+            <h2>@Model.User.FullName</h2>
+            <p class="status">@Model.User.Status</p>
+            <div class="about">
+                <span>О себе: </span>
+                <p>@Model.User.About</p>
+            </div>
+
+            @if (isOwner)
+            {
+                <a class="edit-button" asp-action="Edit" asp-controller="Profile">Редактировать</a>
+            }
+        </div>
+    </div>
+</div>

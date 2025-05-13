@@ -1,0 +1,55 @@
+﻿@using Potato.ViewModels.Account
+@model EditProfileViewModel
+
+<link rel="stylesheet" href="~/css/EditProfile.css" asp-append-version="true" />
+
+<div class="flex-item item-content">
+    <form asp-action="Edit" method="post" class="edit-profile-form">
+        <div class="form-group">
+            <label asp-for="FirstName" class="form-label"></label>
+            <input asp-for="FirstName" class="form-input" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="LastName" class="form-label"></label>
+            <input asp-for="LastName" class="form-input" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="UserName" class="form-label"></label>
+            <input asp-for="UserName" class="form-input" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-input" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BirthDate" class="form-label"></label>
+            <input asp-for="BirthDate" type="date" class="form-input" />
+            <span asp-validation-for="BirthDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Status" class="form-label"></label>
+            <input asp-for="Status" class="form-input" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="About" class="form-label"></label>
+            <textarea asp-for="About" class="form-input"></textarea>
+        </div>
+
+        <button type="submit" class="btn">Сохранить</button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

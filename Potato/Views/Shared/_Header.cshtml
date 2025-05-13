@@ -1,0 +1,38 @@
+﻿<header class="flex-container-header">
+    <!-- Блок 1: Логотип -->
+    <div class="header-block logo-block">
+        <a href="/" class="header-logo">
+            <img src="https://thumbs.dreamstime.com/b/happy-potato-cartoon-character-wearing-baseball-cap-shoes-smiling-happy-potato-cartoon-character-wearing-baseball-cap-347364266.jpg" alt="Логотип">
+            <span>Potato</span>
+        </a>
+    </div>
+
+    <!-- Блок 2: Поиск -->
+    <div class="header-block search-block">
+        <div class="header-search">
+            <form asp-area="" asp-controller="Search" asp-action="UserList">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Поиск" name="search">
+            </form>
+        </div>
+    </div>
+
+    <!-- Блок 3:  -->
+    <div class="header-block empty-block">
+        <!-- блок элементов -->
+    </div>
+</header>
+
+
+@* <header class="flex-item item-header">
+    <a href="/" class="header-logo">
+        <img src="https://thumbs.dreamstime.com/b/happy-potato-cartoon-character-wearing-baseball-cap-shoes-smiling-happy-potato-cartoon-character-wearing-baseball-cap-347364266.jpg" alt="Логотип">
+        <div> Potato</div>
+    </a>
+    <div class="header-search">
+        <form asp-area="" asp-controller="Search" asp-action="UserList">
+            <i class="fa fa-search"></i>
+            <input type="text" placeholder="Поиск" name="search">
+        </form>
+    </div>
+</header> *@
