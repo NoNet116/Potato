@@ -31,25 +31,21 @@ namespace Potato.Controllers
                 var userModel = _mapper.Map<User>(model);
                 var user = await _userManager.FindByEmailAsync(userModel.Email);
 
-                if (user == null)
+                if (user != null)
                 {
-                    ModelState.AddModelError("", "Пользователь с таким email не найден.");
-                    return View("Views/Home/Index.cshtml", model);
+                    var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+
+                    if (result.Succeeded)
+                    {
+                        return Redirect("/" + user.UserName);
+                    }
                 }
 
-                var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
-
-                if (result.Succeeded)
-                {
-                    return Redirect("/" + user.UserName);
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Неправильный логин или пароль.");
-                }
+                ModelState.AddModelError("", "Неправильный логин или пароль.");
+                
             }
 
-            return View("Views/Home/Index.cshtml", model);
+            return View("Views/Home/Index.cshtml");
         }
 
 
