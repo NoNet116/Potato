@@ -1,0 +1,39 @@
+﻿@model Potato.ViewModels.SearchViewModel;
+
+
+<div class="block-reg background-white">
+
+    @if (Model.UserList.Count != 0)
+    {
+        string defaultImg = "https://thumbs.dreamstime.com/b/happy-potato-cartoon-character-wearing-baseball-cap-shoes-smiling-happy-potato-cartoon-character-wearing-baseball-cap-347364266.jpg";
+        @foreach (var user in @Model.UserList)
+        {
+            var profileImage = string.IsNullOrWhiteSpace(user.Image)
+            ? defaultImg : user.Image;
+
+            <div class="profile-container">
+                <div class="profile-card">
+                    <div class="profile-image-container">
+                        <img src="@profileImage" alt="Фото профиля @user.FullName" class="profile-image" id="profilePic" />
+
+                        <div class="context-menu" id="photoMenu">
+                            <a href="@profileImage" target="_blank">Открыть</a>
+                           
+                        </div>
+                    </div>
+
+                    <div class="profile-info">
+                        <a href="/@user.UserName"> @user.FullName</a>
+                        <p class="status">@user.Status</p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <label> Поиск не дал результатов.</label>
+    }
+
+
+</div>

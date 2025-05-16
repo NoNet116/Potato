@@ -1,6 +1,4 @@
 using System.Diagnostics;
-using System.Globalization;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Potato.DbContext.Models.Entity;
@@ -42,7 +40,7 @@ namespace Potato.Controllers
             if (user == null) return NotFound();
 
             var model = new UserViewModel(user);
-            return View("Index", model); // возвращает представление Index.cshtml
+            return View("Index", model); 
         }
         public IActionResult Register()
         {

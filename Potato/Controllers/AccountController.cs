@@ -40,15 +40,10 @@ namespace Potato.Controllers
                         return Redirect("/" + user.UserName);
                     }
                 }
-
                 ModelState.AddModelError("", "Неправильный логин или пароль.");
-                
             }
-
             return View("Views/Home/Index.cshtml");
         }
-
-
 
         [Route("Logout")]
         [HttpPost]
@@ -58,10 +53,5 @@ namespace Potato.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-
-
-
-
-    
-}
+    }
 }
