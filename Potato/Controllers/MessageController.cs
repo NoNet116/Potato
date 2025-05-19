@@ -41,12 +41,13 @@ namespace Potato.Controllers
             var repository = _unitOfWork.GetRepository<Message>() as MessageRepository;
 
             var mess = repository.GetMessages(result, friend);
-
+            
             var model = new ChatViewModel()
             {
                 You = result,
                 ToWhom = friend,
                 History = mess.OrderBy(x => x.Id).ToList(),
+                
             };
             return View("Chat", model);
         }
@@ -73,7 +74,8 @@ namespace Potato.Controllers
             repository.Create(item);
 
             await _hubContext.Clients.User(recipient.Id)
-                .SendAsync("ReceiveMessage", sender.FullName, item.Text, item.Timestamp.ToString("HH:mm"));
+            .SendAsync("ReceiveMessage", sender.FullName, item.Text, item.Timestamp.ToString("o")); // ISO
+
 
             return Ok();
         }

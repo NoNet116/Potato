@@ -16,7 +16,9 @@
                 <div class="chat-message @(message.Sender.Id == Model.You.Id ? "sent" : "received")">
                     <div class="message-header">
                         <span class="sender">@message.Sender.FullName</span>
-                        <span class="timestamp">@message.Timestamp.ToString("HH:mm")</span>
+                        @* <span class="timestamp">@message.Timestamp.ToString("HH:mm")</span> *@
+                        <span class="timestamp" data-utc="@message.Timestamp.ToString("O")Z"></span> @* Z добавлено для правильной конвертации, формат должен быть 2025-05-19T21:00:00Z *@
+
                     </div>
                     <div class="message-body">@message.Text</div>
                 </div>
@@ -50,18 +52,23 @@
         .withUrl("/chathub")
         .build();
 
-    connection.on("ReceiveMessage", function (sender, message, time) {
+        connection.on("ReceiveMessage", function (sender, message, utcTime) {
+        const localTime = new Date(utcTime).toLocaleTimeString([], {
+            hour: '2-digit', minute: '2-digit'
+        });
+
         const messageHtml = `
             <div class="chat-message received">
                 <div class="message-header">
                     <span class="sender">${sender}</span>
-                    <span class="timestamp">${time}</span>
+                    <span class="timestamp">${localTime}</span>
                 </div>
                 <div class="message-body">${message}</div>
             </div>`;
         document.getElementById("messageHistory").insertAdjacentHTML("beforeend", messageHtml);
         scrollToBottom();
     });
+
 
     connection.start().then(() => {
         scrollToBottom(); // ⬅️ Прокрутка к последнему сообщению при открытии
@@ -87,6 +94,7 @@
                 </div>
                 <div class="message-body">${text}</div>
             </div>`;
+
         document.getElementById("messageHistory").insertAdjacentHTML("beforeend", messageHtml);
         scrollToBottom();
 
@@ -114,6 +122,28 @@
         const container = document.getElementById("messageHistory");
         container.scrollTop = container.scrollHeight;
     }
+    
+   // Конвертируем время из UTC в локальное
+        function formatTimestamps() {
+        document.querySelectorAll('.timestamp').forEach(el => {
+            const utcString = el.dataset.utc;
+            if (!utcString) return;
+
+            const localDate = new Date(utcString);
+            if (isNaN(localDate)) return;
+
+            const localTime = localDate.toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            el.textContent = localTime;
+        });
+    }
+ document.addEventListener("DOMContentLoaded", function () {
+        formatTimestamps(); // гарантированно после загрузки DOM
+    });
+
 
 </script>
 
