@@ -35,20 +35,7 @@ namespace Potato.DbContext.Repository
             return friends.ToList();
         }
 
-       /* public List<User> GetFriendsByUser(User target)
-        {
-            if (target == null || string.IsNullOrEmpty(target.Id))
-                throw new ArgumentNullException(nameof(target), "Пользователь не может быть null");
-
-            var friends = Set.Include(x => x.CurrentFriend)
-                             .Include(x => x.User)
-                             .Where(x => x.User != null && x.User.Id == target.Id)
-                             .Select(x => x.CurrentFriend)
-                             .Where(cf => cf != null) // защищаем от null
-                             .ToList();
-
-            return friends;
-        }*/
+       
         public void DeleteFriend(User target, User Friend)
         {
             var friends = Set.AsEnumerable().FirstOrDefault(x => x.UserId == target.Id && x.CurrentFriendId == Friend.Id);
@@ -58,6 +45,6 @@ namespace Potato.DbContext.Repository
                 Delete(friends);
             }
         }
-
+         
     }
 }

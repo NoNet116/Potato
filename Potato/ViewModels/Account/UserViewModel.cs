@@ -6,7 +6,7 @@ namespace Potato.ViewModels.Account
     {
         public User User { get; private set; }
 
-        public IEnumerable<Friend> Friends { get; set; }
+        public List<User> Friends { get; set; }
         public UserViewModel(User user)
         {
             User = user;

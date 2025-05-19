@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Друзья";
+}
+<div class="lined-block">
+
+    @if (Model.Friends.Count != 0)
+    {
+        string defaultImg = "https://thumbs.dreamstime.com/b/happy-potato-cartoon-character-wearing-baseball-cap-shoes-smiling-happy-potato-cartoon-character-wearing-baseball-cap-347364266.jpg";
+        @foreach (var user in @Model.Friends)
+        {
+            var profileImage = string.IsNullOrWhiteSpace(user.Image)
+            ? defaultImg : user.Image;
+
+            <div class="profile-container">
+                <div class="profile-card">
+                    <div class="profile-image-container">
+                        <img src="@profileImage" alt="Фото профиля @user.FullName" class="profile-image" id="profilePic" />
+
+                        <div class="context-menu" id="photoMenu">
+                            <a href="@profileImage" target="_blank">Открыть</a>
+
+                        </div>
+                    </div>
+
+                    <div class="profile-info">
+                        <h2>
+                            <a href="/@user.UserName">@user.FullName</a>
+                        </h2>
+                        <p class="status">@user.Status</p>
+
+                            <form asp-controller="Friend" asp-action="DeleteFriend" asp-route-id="@user.Id" method="post">
+                                <button type="submit" class="btn">
+                                    Удалить из друзей
+                                </button>
+                            </form>
+                        
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="profile-container">
+            <div class="profile-card">
+                <div class="profile-image-container">
+                    <label> У вас пока нет друзей.</label>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

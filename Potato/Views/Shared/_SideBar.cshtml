@@ -2,7 +2,11 @@
 <aside class="flex-item item-sidebar">
     <ul>
         <li><a href="/">👤 Профиль</a></li>
-        <li><a href="/Friends">👥 Друзья</a></li>
+        <li>
+            <form method="get" asp-controller="Friend" asp-action="Friends">
+                <button type="submit">👥 Друзья</button>
+            </form>
+        </li>
         <li><a href="/Messages">✉️ Сообщения</a></li>
         <li>
             <form method="post" asp-controller="Account" asp-action="Logout">

@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Potato.DbContext.Models.Entity;
 using Potato.DbContext.Repository;
+using Potato.ViewModels;
+using Potato.ViewModels.Account;
 
 namespace Potato.Controllers
 {
@@ -56,8 +59,43 @@ namespace Potato.Controllers
 
             repository.DeleteFriend(result, friend);
 
-            return RedirectToAction("MyPage", "AccountManager");
+            return RedirectToAction("Index");
 
+        }
+
+        [Authorize]
+        [Route("Friend")]
+        [Route("Friends")]
+        [HttpGet]
+        public async Task<IActionResult> Friends()
+        {
+            var user = User;
+
+            var result = await _userManager.GetUserAsync(user);
+
+            var model = new UserViewModel(result);
+
+            model.Friends = await GetAllFriend(model.User);
+
+            return View("Index", model);
+        }
+
+        private async Task<List<User>> GetAllFriend(User user)
+        {
+            var repository = _unitOfWork.GetRepository<Friend>() as FriendsRepository;
+
+            return repository.GetFriendsByUser(user);
+        }
+
+        private async Task<List<User>> GetAllFriend()
+        {
+            var user = User;
+
+            var result = await _userManager.GetUserAsync(user);
+
+            var repository = _unitOfWork.GetRepository<Friend>() as FriendsRepository;
+
+            return repository.GetFriendsByUser(result);
         }
 
     }
