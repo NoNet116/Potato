@@ -5,6 +5,7 @@
 
     @if (Model.UserList.Count != 0)
     {
+        
         string defaultImg = "https://thumbs.dreamstime.com/b/happy-potato-cartoon-character-wearing-baseball-cap-shoes-smiling-happy-potato-cartoon-character-wearing-baseball-cap-347364266.jpg";
         @foreach (var user in @Model.UserList)
         {
@@ -23,12 +24,24 @@
                     </div>
 
                     <div class="profile-info">
-                        <a href="/@user.UserName"> @user.FullName</a>
+                        <h2>
+                            <a href="/@user.UserName">@user.FullName</a>
+                        </h2>
                         <p class="status">@user.Status</p>
+
+                        @if (User.Identity.IsAuthenticated && !user.IsFriendWithCurrent && user.UserName != User.Identity.Name)
+                        {
+                            <form asp-controller="Friend" asp-action="AddFriend" asp-route-id="@user.Id" method="post">
+                                <button type="submit" class="btn">
+                                    Добавить в друзья
+                                </button>
+                            </form>
+                        }
                     </div>
                 </div>
             </div>
-        }
+        } 
+
     }
     else
     {

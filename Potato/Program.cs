@@ -4,6 +4,7 @@ using Potato.DbContext.Models.Entity;
 using Potato.DbContext;
 using AutoMapper;
 using Potato.Mapper;
+using Potato.DbContext.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,19 @@ builder.Services.AddSingleton(mapper);
 
 // Настраиваем контекст базы данных
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection), ServiceLifetime.Singleton);
+builder.Services
+    .AddDbContext<AppDbContext>(options => options.UseSqlServer(connection), ServiceLifetime.Scoped);
+
+// Регистрация UnitOfWork
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// Альтернативный способ, если FriendRepository реализует IRepository<Friend>
+builder.Services.AddScoped<FriendsRepository>();
+
+builder.Services.AddScoped<IRepository<Friend>, FriendsRepository>();
+
+
+
 
 // Добавляем Identity с конфигурацией пароля
 builder.Services.AddIdentity<User, IdentityRole>(opts =>

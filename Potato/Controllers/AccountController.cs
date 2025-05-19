@@ -53,5 +53,50 @@ namespace Potato.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        [Route("Register")]
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Проверка на существующий email
+                var existingUser = await _userManager.FindByEmailAsync(model.EmailReg);
+                if (existingUser != null)
+                {
+                    ModelState.AddModelError("EmailReg", "Пользователь с таким email уже существует.");
+                    return View("_RegisterPart", model);
+                }
+
+                var user = _mapper.Map<User>(model);
+                var result = await _userManager.CreateAsync(user, model.PasswordReg);
+
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, false);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        switch (error.Code)
+                        {
+                            case "DuplicateUserName":
+                                ModelState.AddModelError(nameof(model.UserName), "Имя пользователя уже занято.");
+                                break;
+
+
+                            default:
+                                // Ошибка без конкретного поля — выводим в общее место
+                                ModelState.AddModelError(string.Empty, error.Description);
+                                break;
+                        }
+                    }
+                }
+            }
+
+            return View("/Views/Home/Register.cshtml");
+        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Potato.DbContext.Models.Entity;
 using Potato.ViewModels.Account;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Potato.Mapper
 {
@@ -16,8 +15,8 @@ namespace Potato.Mapper
             CreateMap<LoginViewModel, User>();
             /*CreateMap<LoginViewModel, User>()
         .ForMember(x => x.Email, opt => opt.MapFrom(c => c.Email));
-            CreateMap<UserEditViewModel, User>().ReverseMap();
-            CreateMap<UserWithFriendExt, User>().ReverseMap();*/
+            CreateMap<UserEditViewModel, User>().ReverseMap();*/
+            CreateMap<User, UserWithFriendExt>().ReverseMap();
         }
     }
 }
