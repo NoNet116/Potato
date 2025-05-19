@@ -5,6 +5,7 @@ using Potato.DbContext;
 using AutoMapper;
 using Potato.Mapper;
 using Potato.DbContext.Repository;
+using Potato.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,10 +22,11 @@ builder.Services
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // Альтернативный способ, если FriendRepository реализует IRepository<Friend>
-builder.Services.AddScoped<FriendsRepository>();
+//builder.Services.AddScoped<FriendsRepository>();
 
 builder.Services.AddScoped<IRepository<Friend>, FriendsRepository>();
 
+builder.Services.AddScoped<IRepository<Message>, MessageRepository>();
 
 
 
@@ -43,7 +45,15 @@ builder.Services.AddIdentity<User, IdentityRole>(opts =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//автообновление сообщений
+builder.Services.AddSignalR();
+
 var app = builder.Build();
+
+//автообновление сообщений
+app.MapHub<ChatHub>("/chathub");
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

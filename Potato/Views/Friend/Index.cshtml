@@ -27,7 +27,11 @@
                             <a href="/@user.UserName">@user.FullName</a>
                         </h2>
                         <p class="status">@user.Status</p>
-
+                        <form asp-controller="Message" asp-action="Chat" asp-route-id="@user.Id" method="post">
+                            <button type="submit" class="btn">
+                                Чат
+                            </button>
+                        </form>
                             <form asp-controller="Friend" asp-action="DeleteFriend" asp-route-id="@user.Id" method="post">
                                 <button type="submit" class="btn">
                                     Удалить из друзей

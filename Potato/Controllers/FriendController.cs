@@ -59,7 +59,7 @@ namespace Potato.Controllers
 
             repository.DeleteFriend(result, friend);
 
-            return RedirectToAction("Index");
+            return Redirect(Request.Headers["Referer"].ToString());
 
         }
 

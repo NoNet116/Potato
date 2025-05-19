@@ -7,6 +7,7 @@ namespace Potato.DbContext
     public class AppDbContext : IdentityDbContext<User>
     {
         public DbSet<Friend> Friends { get; set; }
+        public DbSet<Message> Messages { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
             Database.EnsureCreated();
