@@ -28,6 +28,7 @@ builder.Services.AddScoped<IRepository<Friend>, FriendsRepository>();
 
 builder.Services.AddScoped<IRepository<Message>, MessageRepository>();
 
+builder.Services.AddHttpClient<GenerateUsers>();
 
 
 // Добавляем Identity с конфигурацией пароля

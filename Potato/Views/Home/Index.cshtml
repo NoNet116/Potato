@@ -1,5 +1,6 @@
 ﻿@model Potato.ViewModels.Account.UserViewModel
 
+
 @{
     ViewData["Title"] = Model?.User?.FullName ?? "Potato";
 }
@@ -7,4 +8,13 @@
 @if (Model != null)
 {
     @await Html.PartialAsync("_Profile", Model)
+
+}
+@if (TempData["Notification"] != null)
+{
+    <script>
+        window.onload = function() {
+            alert(@Html.Raw(Json.Serialize(TempData["Notification"])));
+        };
+    </script>
 }

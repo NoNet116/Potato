@@ -34,43 +34,40 @@ namespace Potato.Controllers
 
         private async Task<SearchViewModel> CreateSearch(string search)
         {
-            var currentUser = User;
-            var result = await _userManager.GetUserAsync(currentUser);
+            var result = await _userManager.GetUserAsync(User);
+            var allUsers = _userManager.Users.AsEnumerable();
 
-            IEnumerable<User> list;
-
-            if (string.IsNullOrWhiteSpace(search))
+            if (!string.IsNullOrWhiteSpace(search))
             {
-                list = _userManager.Users.AsEnumerable();
+                var lowerSearch = search.ToLower();
+                allUsers = allUsers.Where(u => u.GetFullName().ToLower().Contains(lowerSearch));
+            }
+
+            var userList = new List<UserWithFriendExt>();
+
+            if (result != null)
+            {
+                var friends = await GetAllFriend();
+                foreach (var user in allUsers)
+                {
+                    var mappedUser = _mapper.Map<UserWithFriendExt>(user);
+                    mappedUser.IsFriendWithCurrent = friends.Any(f => f.Id == user.Id || user.Id == result.Id);
+                    userList.Add(mappedUser);
+                }
             }
             else
             {
-                var lowerSearch = search.ToLower();
-                list = _userManager.Users.AsEnumerable()
-                    .Where(x => x.GetFullName().ToLower().Contains(lowerSearch));
+                userList = allUsers.Select(u => _mapper.Map<UserWithFriendExt>(u)).ToList();
             }
 
-            var withFriend = await GetAllFriend();
-
-            var data = new List<UserWithFriendExt>();
-
-            foreach (var x in list)
+            return new SearchViewModel
             {
-                var t = _mapper.Map<UserWithFriendExt>(x);
-                t.IsFriendWithCurrent = withFriend.Any(y => y.Id == x.Id || x.Id == result.Id);
-                data.Add(t);
-            }
-
-            var model = new SearchViewModel()
-            {
-                UserList = data
+                UserList = userList
             };
-
-            return model;
         }
 
 
-        private async Task<List<User>> GetAllFriend()
+        public async Task<List<User>> GetAllFriend()
         {
             var user = User;
 

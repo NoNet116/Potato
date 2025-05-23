@@ -16,7 +16,6 @@
                 <div class="chat-message @(message.Sender.Id == Model.You.Id ? "sent" : "received")">
                     <div class="message-header">
                         <span class="sender">@message.Sender.FullName</span>
-                        @* <span class="timestamp">@message.Timestamp.ToString("HH:mm")</span> *@
                         <span class="timestamp" data-utc="@message.Timestamp.ToString("O")Z"></span> @* Z добавлено для правильной конвертации, формат должен быть 2025-05-19T21:00:00Z *@
 
                     </div>

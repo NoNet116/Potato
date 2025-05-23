@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helpers\NameUserIdProvider.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="wwwroot\images\profiles\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,68 @@
+﻿.page-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.no-conversations {
+    color: #666;
+    font-style: italic;
+}
+
+.conversation-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.conversation-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+    .conversation-item:hover {
+        background-color: #f9f9f9;
+    }
+
+.conversation-avatar {
+    margin-right: 12px;
+}
+
+.avatar-circle {
+    background: #007bff;
+    color: white;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.conversation-info {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.conversation-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.conversation-text {
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.conversation-time {
+    color: #999;
+    font-size: 12px;
+    white-space: nowrap;
+}

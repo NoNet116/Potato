@@ -24,5 +24,13 @@ namespace Potato.DbContext.Repository
             itog.OrderBy(x => x.Id);
             return itog;
         }
+
+        public IQueryable<Message> GetAll()
+        {
+            return _db.Messages
+                .Include(m => m.Sender)
+                .Include(m => m.Recipient);
+        }
+
     }
 }

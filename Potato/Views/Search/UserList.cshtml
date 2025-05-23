@@ -27,6 +27,7 @@
                         <h2>
                             <a href="/@user.UserName">@user.FullName</a>
                         </h2>
+                        <p class="status">@user.Email</p>
                         <p class="status">@user.Status</p>
 
                         @if (User.Identity.IsAuthenticated && !user.IsFriendWithCurrent && user.UserName != User.Identity.Name)

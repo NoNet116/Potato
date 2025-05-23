@@ -1,0 +1,63 @@
+﻿.friends-panel-horizontal {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    font-family: sans-serif;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.panel-title {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+.friends-row {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 15px;
+    padding-bottom: 10px;
+}
+
+.friend-card {
+    flex: 0 0 calc((100% / 5) - 12px); /* 5 карточек в ряд с учётом gap */
+    max-width: calc((100% / 5) - 12px);
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    box-sizing: border-box;
+}
+
+.friend-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 6px;
+}
+
+.friend-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.chat-btn {
+    font-size: 12px;
+    padding: 4px 8px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    .chat-btn:hover {
+        background-color: #0056b3;
+    }

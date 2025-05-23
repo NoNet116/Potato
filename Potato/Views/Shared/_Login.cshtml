@@ -8,12 +8,13 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div>
-                    <input asp-for="Email" class="form-control" />
+                    <input asp-for="Email" class="form-control" placeholder="email" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
                 <div>
-                    <input asp-for="Password" class="form-control" />
+                    <input asp-for="Password" class="form-control" placeholder="password" />
+                    
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
 
@@ -24,6 +25,10 @@
 
             <div class="register-link">
                 <a asp-controller="Home" asp-action="Register">Регистрация</a>
+            </div>
+
+            <div class="register-link">
+                <a asp-controller="Home" asp-action="Generate">Генерация</a>
             </div>
         </div>
     </div>

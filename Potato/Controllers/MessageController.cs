@@ -28,6 +28,12 @@ namespace Potato.Controllers
             _hubContext = hubContext;
         }
 
+        [Authorize]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         [Route("Chat")]
         [Authorize]
         [HttpPost]
@@ -78,6 +84,40 @@ namespace Potato.Controllers
 
 
             return Ok();
+        }
+
+        [Route("Messages")]
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Messages()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            var repository = _unitOfWork.GetRepository<Message>() as MessageRepository;
+
+            // Получаем все сообщения, где текущий пользователь — либо отправитель, либо получатель
+            var allMessages = repository
+                .GetAll()
+                .Where(m => m.SenderId == currentUser.Id || m.RecipientId == currentUser.Id)
+                .ToList();
+
+            // Группируем по пользователю-собеседнику
+            var conversations = allMessages
+    .Select(m => new
+    {
+        Companion = m.SenderId == currentUser.Id ? m.Recipient : m.Sender,
+        Message = m
+    })
+    .GroupBy(x => x.Companion.Id)
+    .Select(g => new ConversationViewModel
+    {
+        Companion = g.First().Companion,
+        LastMessage = g.OrderByDescending(m => m.Message.Timestamp).First().Message,
+        CurrentUserId = currentUser.Id // 👈 передаём сюда
+    })
+    .OrderByDescending(x => x.LastMessage.Timestamp)
+    .ToList();
+
+            return View("Messages", conversations);
         }
 
 

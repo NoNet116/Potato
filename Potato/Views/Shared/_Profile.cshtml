@@ -6,6 +6,7 @@
     var profileImage = string.IsNullOrWhiteSpace(Model.User.Image)
         ? "https://thumbs.dreamstime.com/b/happy-potato-cartoon-character-wearing-baseball-cap-shoes-smiling-happy-potato-cartoon-character-wearing-baseball-cap-347364266.jpg"
         : Model.User.Image;
+    
 }
 
 <div class="profile-container">
@@ -44,4 +45,30 @@
             }
         </div>
     </div>
+    <link rel="stylesheet" href="~/css/FriendsinProfile.css" asp-append-version="true" />
+    <div class="friends-panel-horizontal">
+        <h3 class="panel-title">Друзья</h3>
+        <div class="friends-row">
+            @foreach (var friend in Model.Friends)
+            {
+                var pimg = string.IsNullOrWhiteSpace(friend.Image)
+                ? "https://thumbs.dreamstime.com/b/happy-potato-cartoon-character-wearing-baseball-cap-shoes-smiling-happy-potato-cartoon-character-wearing-baseball-cap-347364266.jpg"
+                : friend.Image;
+                <div class="friend-card">
+                    <img src="@pimg" alt="@friend.FirstName" class="friend-avatar" />
+                    <div class="friend-name">@friend.FirstName</div>
+                    <form asp-controller="Message" asp-action="Chat" asp-route-id="@friend.Id" method="post">
+                        <button type="submit" class="chat-btn">Чат</button>
+                    </form>
+                </div>
+            }
+        </div>
+    </div>
 </div>
+
+
+
+
+
+
+
